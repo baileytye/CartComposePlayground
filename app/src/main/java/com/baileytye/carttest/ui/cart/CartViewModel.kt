@@ -1,6 +1,5 @@
 package com.baileytye.carttest.ui.cart
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.baileytye.carttest.domain.CartItemUI
 import com.baileytye.carttest.domain.PriceTotals
@@ -9,7 +8,6 @@ import com.baileytye.carttest.viewModel.StoreActionViewModel
 import com.dropbox.android.external.store4.Store
 import com.dropbox.android.external.store4.StoreResponse
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import javax.inject.Inject
@@ -28,6 +26,7 @@ class CartViewModel @Inject constructor(
         when (action) {
             is CartAction.UpdateCart -> updateCart(action.id, action.count)
             CartAction.OrderNow -> orderNow()
+            CartAction.Retry -> refreshData(Unit, forceRefresh = true)
         }
     }
 
